@@ -1,2 +1,6 @@
+# Ignore
 vendor
 /vendor
+
+# Allow
+!/assets/vendor

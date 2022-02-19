@@ -1,0 +1,2 @@
+# standup
+Stand Jira Application

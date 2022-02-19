@@ -1,0 +1,233 @@
+
+
+function addYesterDayTaskList() {
+        let li = document.createElement("li");
+        let inputValue = document.getElementById("add_yesterday_task").value;
+        let t = document.createTextNode(inputValue);
+        li.appendChild(t);
+
+        if (inputValue === '') {
+        alert("You must write something!");
+        } else {
+        document.getElementById("yesterday_task_list").appendChild(li);
+        }
+        document.getElementById("add_yesterday_task").value = "";
+    
+
+        let parentSpan = document.createElement("span");
+        parentSpan.className = "extraEventsItem input-group-addon";
+
+
+    
+        /* Extra data */
+        let moveSpan = document.createElement("span");
+        let moveTxt = document.createTextNode("move");
+        moveSpan.className = "moveItem fa fa-bars";
+        //moveSpan.appendChild(moveTxt);
+        parentSpan.appendChild(moveSpan);
+
+
+        let closeSpan = document.createElement("span");
+        let closeTxt = document.createTextNode("close");
+        closeSpan.className = "removeItem fa fa-times";
+       // closeSpan.appendChild(closeTxt);
+        parentSpan.appendChild(closeSpan);
+    
+
+        li.appendChild(parentSpan)
+
+
+        for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+}
+
+
+var addYesterdayTask = document.getElementById('add_yesterday_task');
+addYesterdayTask.onkeydown = function(e) {
+    if (e.key == "Enter") {
+        addYesterDayTaskList();
+        e.preventDefault();
+    }
+};
+
+
+    /* On input foucs add class to parent div */
+
+    
+
+    const onFousAddClassToParentDiv = function (el) {
+        el.addEventListener('focus', function(){
+            el.parentNode.classList.add("active");
+        });
+
+        el.addEventListener('focusout', function(){
+            el.parentNode.classList.remove("active");
+        });
+    }
+
+    document.querySelectorAll('.wdm-question-input .form-control').forEach(function(el){
+        onFousAddClassToParentDiv(el); 
+    })
+
+
+
+    /* addPlanningTaskList */
+
+
+    function addPlanningTaskList(){
+
+        let li = document.createElement("li");
+        let inputValue = document.getElementById("add_today_planning").value;
+        let t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+        alert("You must write something!");
+        } else {
+        document.getElementById("planning_task_list").appendChild(li);
+        }
+        document.getElementById("add_today_planning").value = "";
+    
+
+        let parentSpan = document.createElement("span");
+        parentSpan.className = "extraEventsItem input-group-addon";
+
+
+    
+        /* Extra data */
+        let moveSpan = document.createElement("span");
+        let moveTxt = document.createTextNode("move");
+        moveSpan.className = "moveItem fa fa-bars";
+        //moveSpan.appendChild(moveTxt);
+        parentSpan.appendChild(moveSpan);
+
+
+        let closeSpan = document.createElement("span");
+        let closeTxt = document.createTextNode("close");
+        closeSpan.className = "removeItem fa fa-times";
+       // closeSpan.appendChild(closeTxt);
+        parentSpan.appendChild(closeSpan);
+    
+
+        li.appendChild(parentSpan)
+
+
+        for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+
+    }
+
+    var addTodayTask = document.getElementById('add_today_planning');
+    addTodayTask.onkeydown = function(e) {
+        if (e.key == "Enter") {
+            addPlanningTaskList();
+            e.preventDefault();
+        }
+    };
+
+
+    /* Chaallenges */
+
+      /* addPlanningTaskList */
+
+
+    function addChallengesList(){
+
+        let li = document.createElement("li");
+        let inputValue = document.getElementById("add_challenges").value;
+        let t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+        alert("You must write something!");
+        } else {
+        document.getElementById("challenges_task_list").appendChild(li);
+        }
+        document.getElementById("add_challenges").value = "";
+    
+
+        let parentSpan = document.createElement("span");
+        parentSpan.className = "extraEventsItem input-group-addon";
+
+
+    
+        /* Extra data */
+        let moveSpan = document.createElement("span");
+        let moveTxt = document.createTextNode("move");
+        moveSpan.className = "moveItem fa fa-bars";
+        //moveSpan.appendChild(moveTxt);
+        parentSpan.appendChild(moveSpan);
+
+
+        let closeSpan = document.createElement("span");
+        let closeTxt = document.createTextNode("close");
+        closeSpan.className = "removeItem fa fa-times";
+       // closeSpan.appendChild(closeTxt);
+        parentSpan.appendChild(closeSpan);
+    
+
+        li.appendChild(parentSpan)
+
+
+        for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+
+    }
+
+    var addTodayTask = document.getElementById('add_challenges');
+    addTodayTask.onkeydown = function(e) {
+        if (e.key == "Enter") {
+            addChallengesList();
+            e.preventDefault();
+        }
+    };
+
+
+    /* Form Submission */
+
+
+    jQuery(document).ready(function () {
+        jQuery("form").submit(function (event) {
+          var formData = {
+            name: jQuery("#name").val(),
+            email: jQuery("#email").val(),
+            superheroAlias: jQuery("#superheroAlias").val(),
+          };
+      
+          jQuery.ajax({
+            type: "POST",
+            url: "process.php",
+            data: formData,
+            dataType: "json",
+            encode: true,
+          }).done(function (data) {
+            console.log(data);
+          });
+      
+          event.preventDefault();
+        });
+      });
+      
+
+
+      jQuery( "#task_submission_form" ).on( "submit", function(e) {
+ 
+        var dataString = $(this).serialize();
+         
+         alert(dataString); return false;
+     
+
+
+        e.preventDefault();
+      });
+ 

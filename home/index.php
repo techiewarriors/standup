@@ -93,7 +93,8 @@ if($user_id > 0) {
 									</ul>
 
 									<div class="wdm-question-input">
-										<input type="text" placeholder="Add Progress..." name="question_yesterday[]" id="add_yesterday_task" class="form-control" />
+										<input type="text" placeholder="Add Progress..." name="question_yesterday[]" id="add_yesterday_task" class="form-control" list="issues" />
+										<datalist id="issues"></datalist>
 										<span onclick="addYesterDayTaskList()" class="addBtn"><i class="fa fa-plus"></i></span>
 									</div>
 								</div>

@@ -3,6 +3,22 @@
 function addYesterDayTaskList() {
         let li = document.createElement("li");
         let inputValue = document.getElementById("add_yesterday_task").value;
+
+        // Ajax to check if this issue exists in jira or not
+        var formData = {
+            new_issue: inputValue
+        }
+        jQuery.ajax({
+            type: "POST",
+            url: "../assets/includes/ajax.php",
+            data: formData,
+            dataType: "json",
+            encode: true,
+        })
+        .done(function (data) {
+            //console.log(data);
+        });
+        
         let t = document.createTextNode(inputValue);
         li.appendChild(t);
 
@@ -216,6 +232,30 @@ addYesterdayTask.onkeydown = function(e) {
       
           event.preventDefault();
         });
+
+        jQuery("#add_yesterday_task").keyup(function() {
+            var task = jQuery('#add_yesterday_task').val();
+            var data_list = jQuery("#issues");
+            if(task.length == 4) {
+                var formData = {
+                    search_key: task
+                }
+                jQuery.ajax({
+                    type: "POST",
+                    url: "../assets/includes/ajax.php",
+                    data: formData,
+                    dataType: "json",
+                    encode: true,
+                })
+                .done(function (data) {
+                    var data_list = '';
+                    jQuery.each(data, function(index) {
+                        data_list += '<option value="'+data[index]+'">';
+                    });
+                    jQuery(document).find("#issues").html(data_list);
+                });
+            }
+        });
       });
       
 
@@ -228,48 +268,48 @@ addYesterdayTask.onkeydown = function(e) {
         
         var question_yesterday = new Array();
         $('ul#yesterday_task_list li').each(function(){
-		    question_yesterday.push($(this).text());
-		});
+            question_yesterday.push($(this).text());
+        });
 
         var question_today = new Array();
         $('ul#planning_task_list li').each(function(){
-		    question_today.push($(this).text());
-		});
+            question_today.push($(this).text());
+        });
 
         var question_challenges = new Array();
         $('ul#challenges_task_list li').each(function(){
-		    question_challenges.push($(this).text());
-		});
+            question_challenges.push($(this).text());
+        });
 
           $.ajax({
-			type: "POST",
-			url: "process.php",
-			data: "question_yesterday="+question_yesterday+"&question_today="+question_today+"&question_challenges="+question_challenges,
+            type: "POST",
+            url: "process.php",
+            data: "question_yesterday="+question_yesterday+"&question_today="+question_today+"&question_challenges="+question_challenges,
             success: function(data){
 
-				console.log('success	 = ', data);
-				var obj = $.parseJSON(data);
-				var msg = '';
+                console.log('success     = ', data);
+                var obj = $.parseJSON(data);
+                var msg = '';
 
-				if(obj.status == true) {
-					msg = '<div class="alert alert-success" role="alert">'+obj.msg+'</div>';
-				} else {
-					msg = '<div class="alert alert-danger" role="alert">'+obj.msg+'</div>';
-				}
+                if(obj.status == true) {
+                    msg = '<div class="alert alert-success" role="alert">'+obj.msg+'</div>';
+                } else {
+                    msg = '<div class="alert alert-danger" role="alert">'+obj.msg+'</div>';
+                }
 
-				$('#msg_div').html(msg);
-				$('html,body').animate({scrollTop: $("#msg_div").offset().top}, 'slow');
+                $('#msg_div').html(msg);
+                $('html,body').animate({scrollTop: $("#msg_div").offset().top}, 'slow');
 
-				setTimeout(function(){ window.location.reload(); }, 3000);
+                setTimeout(function(){ window.location.reload(); }, 3000);
 
            },
            error: function(data){
 
-				alert('error');
-				console.log('error = ', data);
-				return false;
+                alert('error');
+                console.log('error = ', data);
+                return false;
            }
-		});
+        });
 
         
     });
